@@ -3,9 +3,11 @@
 
 import 'egg';
 import ExportHome from '../../../app/controller/home';
+import ExportRateLimit from '../../../app/controller/rateLimit';
 
 declare module 'egg' {
   interface IController {
     home: ExportHome;
+    rateLimit: ExportRateLimit;
   }
 }
