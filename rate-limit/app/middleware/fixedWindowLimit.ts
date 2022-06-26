@@ -5,8 +5,9 @@ export type FixedWindowOptions = Partial<{
     duration: number
 }>
 
-export default function (options: FixedWindowOptions = {}, app?) {
+export default function (options: FixedWindowOptions = {}) {
     return async function (ctx, next) {
+        const {app} = ctx;
         const key = options.cacheKey || 'fixedWindow';
         const max = options.max || 5;
         const duration = options.duration || 5 * 60;

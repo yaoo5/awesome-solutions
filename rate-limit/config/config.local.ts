@@ -7,7 +7,7 @@ export default () => {
     client: {
       host: '127.0.0.1',
       port: 6379,
-      keyPrefix: 'rate-limit:',
+      keyPrefix: 'rateLimit:',
       password: '',
       db: 0
     }
