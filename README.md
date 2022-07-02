@@ -1,5 +1,5 @@
 # awesome-solutions
 
 ## Node.js
-- [rate limit](./rate-limit/README.md)
+- [Rate Limit (Node.js)](./rate-limit/README.md)
 
