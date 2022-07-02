@@ -1,28 +1,31 @@
-
 export type FixedWindowOptions = Partial<{
     cacheKey: string,
     max: number,
-    duration: number
+    duration: number,
+    message: string
 }>
 
-export default function (options: FixedWindowOptions = {}) {
+export default function (
+    {
+        cacheKey = 'fixedWindow',
+        duration = 5 * 60,
+        max = 5,
+        message = 'Too Many Requests.'
+    }: FixedWindowOptions
+) {
     return async function (ctx, next) {
         const {app} = ctx;
-        const key = options.cacheKey || 'fixedWindow';
-        const max = options.max || 5;
-        const duration = options.duration || 5 * 60;
 
         console.time('fixedWindow')
-        await app.redis.set(key, 0, 'EX', duration, 'NX');
-        const rate = await app.redis.incr(key);
+        await app.redis.set(cacheKey, 0, 'EX', duration, 'NX');
+        const rate = await app.redis.incr(cacheKey);
         console.timeEnd('fixedWindow')
 
         if (rate > max) {
             ctx.status = 429;
-            ctx.body = 'Too Many Requests.'
-            return;
+            ctx.body = message
+        } else {
+            await next();
         }
-
-        await next();
     }
 }
