@@ -9,9 +9,9 @@ export default () => {
       port: 6379,
       keyPrefix: 'rateLimit:',
       password: '',
-      db: 0
-    }
-  }
+      db: 0,
+    },
+  };
 
   return config;
 };

@@ -4,7 +4,7 @@
 import 'egg';
 import ExportFixedWindowLimit from '../../../app/middleware/fixedWindowLimit';
 import ExportLeakyBucketLimit from '../../../app/middleware/leakyBucketLimit';
-import ExportSlidingWindowLimit from '../../../app/middleware/slidingWindowLimit';
+import ExportSlidingWindowLimit from '../../../app/middleware/slidingLogLimit';
 import ExportTokenBucketLimit from '../../../app/middleware/tokenBucketLimit';
 
 declare module 'egg' {
