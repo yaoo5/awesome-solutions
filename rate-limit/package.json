@@ -19,7 +19,11 @@
     "ci": "npm run lint && npm run cov && npm run tsc",
     "autod": "autod",
     "lint": "eslint . --ext .ts --resolve-plugins-relative-to .",
-    "clean": "ets clean"
+    "clean": "ets clean",
+    "stress:fixedWindow": "ab -n 100 -c 10 -m POST http://localhost:7001/api/rateLimit/fixedWindow",
+    "stress:slidingWindow": "ab -n 100 -c 10 -m POST http://localhost:7001/api/rateLimit/slidingWindow",
+    "stress:leakyBucket": "ab -n 100 -c 10 -m POST http://localhost:7001/api/rateLimit/leakyBucket",
+    "stress:tokenBucket": "ab -n 100 -c 10 -m POST http://localhost:7001/api/rateLimit/tokenBucket"
   },
   "dependencies": {
     "egg": "^2.6.1",

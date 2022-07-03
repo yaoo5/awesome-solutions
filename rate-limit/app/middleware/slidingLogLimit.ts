@@ -12,14 +12,13 @@ export default function(
     max = 5,
     duration = 5 * 60,
     message = 'Too Many Requests',
-  }: SlidingWindowOptions,
+  }: SlidingWindowOptions = {},
 ) {
   return async function(ctx, next) {
     const { app } = ctx;
     const now = Date.now();
     const start = now - duration * 1000;
 
-    console.time('slidingWindow');
     const res = await app.redis.multi()
       .zremrangebyscore(cacheKey, '0', start)
       .zcard(cacheKey)
@@ -28,7 +27,6 @@ export default function(
       .expire(cacheKey, duration)
       .exec();
     const rate = res[1][1];
-    console.timeEnd('slidingWindow');
 
     if (rate >= max) {
       ctx.status = 429;

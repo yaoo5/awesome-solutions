@@ -10,6 +10,9 @@ module.exports = {
     const { app } = ctx;
     const max = 5;
 
-    await app.redis.multi().lpush('tokenBucket', Date.now()).ltrim('tokenBucket', 0, max - 1);
+    await app.redis.multi()
+      .lpush('tokenBucket', Date.now())
+      .ltrim('tokenBucket', 0, max - 1)
+      .exec();
   },
 };

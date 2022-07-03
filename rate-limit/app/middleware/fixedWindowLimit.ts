@@ -1,3 +1,4 @@
+
 export type FixedWindowOptions = Partial<{
   cacheKey: string,
   max: number,
@@ -16,10 +17,8 @@ export default function(
   return async function(ctx, next) {
     const { app } = ctx;
 
-    console.time('fixedWindow');
     await app.redis.set(cacheKey, 0, 'EX', duration, 'NX');
     const rate = await app.redis.incr(cacheKey);
-    console.timeEnd('fixedWindow');
 
     if (rate > max) {
       ctx.status = 429;

@@ -22,11 +22,11 @@ export default (app: Application) => {
 
   // leaky-bucket-limit api
   router.post('/api/rateLimit/leakyBucket',
-    leakyBucketLimit(),
+    leakyBucketLimit({}),
     controller.rateLimit.leakyBucket);
 
   // token-bucket-limit api
   router.post('/api/rateLimit/tokenBucket',
-    tokenBucketLimit(),
+    tokenBucketLimit({}),
     controller.rateLimit.tokenBucket);
 };

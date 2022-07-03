@@ -1,25 +1,23 @@
 
-export type FixedWindowOptions = Partial<{
+export type TokenBucketLimit = Partial<{
   cacheKey: string,
-  max: number,
-  duration: number
 }>;
 
-export default function(options: FixedWindowOptions = {}) {
+export default function(
+  {
+    cacheKey = 'tokenBucket',
+  }: TokenBucketLimit,
+) {
   return async function(ctx, next) {
     const { app } = ctx;
-    const key = options.cacheKey || 'tokenBucket';
 
-    console.time('tokenBucket');
-    const token = await app.redis.lpop(key);
-    console.timeEnd('tokenBucket');
+    const token = await app.redis.lpop(cacheKey);
 
     if (!token) {
       ctx.status = 429;
       ctx.body = 'Too Many Requests.';
-      return;
+    } else {
+      await next();
     }
-
-    await next();
   };
 }
